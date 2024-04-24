@@ -25,22 +25,10 @@ spec:
   privateKey:
     algorithm: RSA
     size: 2048
-  duration: {{ .Values.certificates.certManager.duration }}
-  renewBefore: {{ .Values.certificates.certManager.renewBefore }}
+  duration: 8760h0m0s # 1 year
+  renewBefore: 5840h0m0s # 8 months
   issuerRef:
-    {{- if .Values.certificates.certManager.issuer.generate }}
     name: {{ .Values.operator.name }}-issuer
     kind: Issuer
     group: cert-manager.io
-    {{- else }}
-    {{- if .Values.certificates.certManager.issuer.name }}
-    name: {{ .Values.certificates.certManager.issuer.name }}
-    {{- end }}
-    {{- if .Values.certificates.certManager.issuer.kind }}
-    kind: {{ .Values.certificates.certManager.issuer.kind }}
-    {{- end }}
-    {{- if .Values.certificates.certManager.issuer.group }}
-    group: {{ .Values.certificates.certManager.issuer.group }}
-    {{- end }}
-    {{- end }}
 {{- end }}
